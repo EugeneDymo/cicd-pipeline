@@ -23,7 +23,6 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    steps:
       - uses: actions/checkout@v1
       - name: Setup and run tests
         working-directory: ./quasar-project  
