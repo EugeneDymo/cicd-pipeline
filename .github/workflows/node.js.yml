@@ -30,7 +30,7 @@ jobs:
         working-directory: ./quasar-project/ 
         run: |
           echo "$GCP_CREDS" > ./gcp_auth.json
-          cat ./gcp_auth.json
+          ls -la
       - name: Auth to GCP
         working-directory: ./quasar-project/
         run: |
