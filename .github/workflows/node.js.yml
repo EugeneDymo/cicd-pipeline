@@ -39,4 +39,4 @@ jobs:
       - name: Deploy to GCP
         working-directory: ./quasar-project/dist/spa 
         run: |
-          gsutil -m rsync -dr build/ gs://spa-frontend-test-pi          
+          gsutil -m rsync -dr ./ gs://spa-frontend-test-pi          
