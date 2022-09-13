@@ -31,6 +31,7 @@ jobs:
         run: |
           echo "${{ secrets.GCP_CREDS }}" > ./gcp_auth.json
           ls -la
+          cat ./gcp_auth.json
       - name: Auth to GCP
         working-directory: ./quasar-project/
         run: |
