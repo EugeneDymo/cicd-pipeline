@@ -26,9 +26,15 @@ jobs:
         run: |
           npm install
           ./node_modules/.bin/quasar build
-      - name: Deploy to s3
+      - name: Create AuthFile
+        working-directory: ./quasar-project/ 
+        run: |
+          echo "$GCP_CREDS" > ./gcp_auth.json
+      - name: Auth to GCP
+        working-directory: ./quasar-project/
+        run: |
+          gcloud auth activate-service-account --key-file="./gcp_auth.json"
+      - name: Deploy to GCP
         working-directory: ./quasar-project/dist/spa 
         run: |
-          gcloud auth activate-service-account --key-file="$GCP_CREDS"
-          gsutil -m rsync -dr build/ gs://spa-frontend-test-pi
-
+          gsutil -m rsync -dr build/ gs://spa-frontend-test-pi          
