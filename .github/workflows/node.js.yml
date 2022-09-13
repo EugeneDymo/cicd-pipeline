@@ -21,9 +21,14 @@ jobs:
 
     steps:
       - uses: actions/checkout@v1
-      - name: Setup and run tests
+      - name: Build app
         working-directory: ./quasar-project  
         run: |
           npm install
           ./node_modules/.bin/quasar build
+      - name: Deploy to s3
+        working-directory: ./quasar-project/dist/spa 
+        run: |
+          gcloud auth activate-service-account --key-file="$GCP_CREDS"
+          gsutil -m rsync -dr build/ gs://spa-frontend-test-pi
 
