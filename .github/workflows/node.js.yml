@@ -26,6 +26,14 @@ jobs:
         run: |
           npm install
           ./node_modules/.bin/quasar build
+
+      - name: 'Upload Artifact'
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-app-artifact
+          path: ./quasar-project/dist/spa
+          retention-days: 5    
+          
       - name: Create AuthFile
         working-directory: ./quasar-project/ 
         run: |
