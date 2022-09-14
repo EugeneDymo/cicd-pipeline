@@ -5,9 +5,9 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "develop" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "develop" ]
 
 jobs:
   build:
@@ -34,7 +34,13 @@ jobs:
         working-directory: ./quasar-project/
         run: |
           gcloud auth activate-service-account --key-file="./gcp_auth.json"
-      - name: Deploy to GCP
+      - name: Deploy to production GCP
         working-directory: ./quasar-project/dist/spa 
+        if: github.ref == 'refs/heads/main'
         run: |
-          gsutil -m rsync -dr ./ gs://storydata-figagency-com         
+          gsutil -m rsync -dr ./ gs://storydata-figagency-com
+      - name: Deploy to develop GCP
+        working-directory: ./quasar-project/dist/spa     
+        if: github.ref == 'refs/heads/develop'
+        run: |
+          gsutil -m rsync -dr ./ gs://dev-storydata-figagency-com      
