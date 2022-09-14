@@ -1,8 +1,8 @@
 {
   "name": "quasar-project",
   "version": "0.0.1",
-  "description": "CI/CD Pipeline testing",
-  "productName": "CICD Pipeline",
+  "description": "StoryData",
+  "productName": "StoryData",
   "author": "Eugene Dymo <eugene.dymo@postindustria.com>",
   "private": true,
   "scripts": {
