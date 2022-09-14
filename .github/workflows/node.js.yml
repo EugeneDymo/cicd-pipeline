@@ -33,22 +33,33 @@ jobs:
           name: build-app-artifact
           path: ./quasar-project/dist/spa
           retention-days: 5    
-          
+      
+      - name: Download a single artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: build-app-artifact
+      
+  deploy:
+
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
       - name: Create AuthFile
-        working-directory: ./quasar-project/ 
+        #working-directory: ./quasar-project/ 
         run: |
           echo '${{ secrets.GCP_CREDS }}' > ./gcp_auth.json
       - name: Auth to GCP
-        working-directory: ./quasar-project/
+        #working-directory: ./quasar-project/
         run: |
           gcloud auth activate-service-account --key-file="./gcp_auth.json"
+          rm -rf ./gcp_auth.json
       - name: Deploy to production GCP
-        working-directory: ./quasar-project/dist/spa 
+        #working-directory: ./quasar-project/dist/spa 
         if: github.ref == 'refs/heads/main'
         run: |
           gsutil -m rsync -dr ./ gs://storydata-figagency-com
       - name: Deploy to develop GCP
-        working-directory: ./quasar-project/dist/spa     
+        #working-directory: ./quasar-project/dist/spa     
         if: github.ref == 'refs/heads/develop'
         run: |
           gsutil -m rsync -dr ./ gs://dev-storydata-figagency-com      
