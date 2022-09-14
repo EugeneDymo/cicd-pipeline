@@ -7,7 +7,7 @@
     >
   </q-page>
 </template>
-
+<center>develop</center>
 <script>
 import { defineComponent } from 'vue'
 
