@@ -30,12 +30,6 @@ jobs:
         working-directory: ./quasar-project/ 
         run: |
           echo '${{ secrets.GCP_CREDS }}' > ./gcp_auth.json
-  
-  deploy:
-
-    runs-on: ubuntu-latest
-
-    steps:
       - name: Auth to GCP
         working-directory: ./quasar-project/
         run: |
